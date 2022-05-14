@@ -38,6 +38,7 @@ const Bingo = ({ slug }) => {
       {boardState.map((t, i) => {
         return (
           <div
+            key={t.tile}
             className={`tile ${t.state ? "on" : "off"}`}
             onClick={boardClickHandler(i)}
           >
