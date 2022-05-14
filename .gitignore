@@ -30,3 +30,9 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+#Files not in use
+pages/api
+pages/board/
+pages/board-builder.js
+pages/board-join.js
