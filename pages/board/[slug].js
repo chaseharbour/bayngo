@@ -16,14 +16,13 @@ const Bingo = ({ slug }) => {
     });
 
     channel = pusher.subscribe(`presence-${slug}`);
-    console.log(channel);
 
     channel.bind("create-event", (data) => setBoardState(data.board));
 
     return () => {
       pusher.unsubscribe(`presence-${slug}`);
     };
-  }, []);
+  }, []); 
 
   const boardClickHandler = (i) => (e) => {
     setBoardState(
