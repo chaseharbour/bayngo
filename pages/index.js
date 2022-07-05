@@ -20,12 +20,12 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        {/* <Link href="/board-builder">
+        <Link href="/board-builder">
           <a>Create</a>
         </Link>
         <Link href="/board-join">
           <a>Join</a>
-        </Link> */}
+        </Link>
         <Bingo />
       </main>
     </div>
