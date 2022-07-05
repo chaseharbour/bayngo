@@ -4,10 +4,7 @@ const { v4: uuidv4 } = require("uuid");
 
 export const pusher = new Pusher({
   //CREATE ENV
-  appId: "",
-  key: "",
-  secret: "",
-  cluster: "us3",
+  cluster:"us3",
   useTLS: true,
 });
 
