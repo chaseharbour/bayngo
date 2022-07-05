@@ -12,6 +12,7 @@ export const pusher = new Pusher({
 });
 
 export default async function handler(req, res) {
+  console.log(req.body);
   const { roomID, socket_id, name, isCreator } = req.body;
 
   const presenceData = {

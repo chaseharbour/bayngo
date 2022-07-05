@@ -90,7 +90,7 @@ const BoardBuilder = () => {
     const postRoomState = async (name, state, room) => {
       try {
         const response = await axios.post("/api/pusher/auth", {
-          roomID: room,
+          roomID: `presence-${room}`,
           name,
           state,
           isCreator: true,

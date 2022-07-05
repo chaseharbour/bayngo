@@ -12,7 +12,7 @@ export const pusher = new Pusher({
 export default async function createHandler(req, res) {
   const { roomID, state } = req.body;
 
-  const response = await pusher.trigger(`${roomID}`, "create-event", {
+  const response = await pusher.trigger(`presence-${roomID}`, "create-event", {
     board: state,
   });
 

@@ -1,12 +1,4 @@
-// import Pusher from "pusher";
-
-// const pusher = new Pusher({
-//   appId: "",
-//   key: "",
-//   secret: "",
-//   cluster: "us3",
-//   useTLS: true,
-// });
+//Creates a random 5 character room name
 
 export default function createRoom(req, res) {
   const randIDGen = (letterArr, numArr) => {

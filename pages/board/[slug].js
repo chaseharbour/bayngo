@@ -15,13 +15,13 @@ const Bingo = ({ slug }) => {
       channelAuthorization: { endpoint: "/api/pusher/auth" },
     });
 
-    channel = pusher.subscribe(`${slug}`);
+    channel = pusher.subscribe(`presence-${slug}`);
     console.log(channel);
 
     channel.bind("create-event", (data) => setBoardState(data.board));
 
     return () => {
-      pusher.unsubscribe(`${slug}`);
+      pusher.unsubscribe(`presence-${slug}`);
     };
   }, []);
 
