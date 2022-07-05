@@ -39,19 +39,21 @@ const Bingo = ({ slug }) => {
     setBoardID(slug);
 
     const pusher = new Pusher("038f0aceaa38432312b6", {
+      app_id: process.env.PUSHER_APP_ID,
+      key: process.env.PUSHER_KEY,
+      secret: process.env.PUSHER_SECRET,
       cluster: "us3",
       channelAuthorization: { endpoint: "/api/pusher/auth" },
     });
 
-    channel = pusher.subscribe(`presence-${slug}`);
-    console.log(channel);
+    channel = pusher.subscribe(`${slug}`);
 
     channel.bind("create-event", (data) => setBoardState(data.board));
 
     return () => {
-      pusher.unsubscribe(`presence-${slug}`);
+      pusher.unsubscribe(`${slug}`);
     };
-  }, []);
+  }, []); 
 
   const boardClickHandler = (i) => (e) => {
     setBoardState(
