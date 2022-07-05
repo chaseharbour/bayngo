@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DynamicLinkButton from "../components/dynamic-link-button";
 import Name from "../components/name";
+import styles from "../styles/Board.module.css";
 
 const BoardBuilder = () => {
   const [name, setName] = useState("");
@@ -107,12 +108,12 @@ const BoardBuilder = () => {
 
   return (
     <>
-      <div className="board">
-        <Name
-          placeholder={"Enter your name"}
-          changeFunc={nameChangeHandler}
-          required={true}
-        />
+      <Name
+        placeholder={"Enter your name"}
+        changeFunc={nameChangeHandler}
+        required={true}
+      />
+      <div className={styles.board}>
         {boardState.map((t, i) => {
           return t.isEditing ? (
             <input
@@ -122,8 +123,8 @@ const BoardBuilder = () => {
               onChange={boardChangeHandler(i)}
             ></input>
           ) : (
-            <div className={`tile`} onClick={tileClickHandler(i)}>
-              <p className="tile-content">{`${t.content}
+            <div className={styles.tile} onClick={tileClickHandler(i)}>
+              <p className={styles.text}>{`${t.content}
               `}</p>
             </div>
           );
