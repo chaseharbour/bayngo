@@ -86,23 +86,16 @@ const BoardBuilder = () => {
     );
   };
 
-  const boardCreateHandler = () => {
-    const postRoomState = async (name, state, room) => {
-      try {
-        const response = await axios.post("/api/pusher/auth", {
-          roomID: `presence-${room}`,
-          name,
-          state,
-          isCreator: true,
-        });
-
-        console.log(response);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    postRoomState(name, boardState, roomName);
+  const boardCreateHandler = async () => {
+    try {
+      await axios.post('/api/pusher/room-create', {
+        state: boardState,
+        roomID: roomName,
+      })
+    } catch (e) {
+      return alert(e);
+    }
+    console.log('board initial state set!');
   };
 
   return (

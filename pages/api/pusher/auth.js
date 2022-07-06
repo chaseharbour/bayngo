@@ -4,30 +4,32 @@ const { v4: uuidv4 } = require("uuid");
 
 export const pusher = new Pusher({
   //CREATE ENV
+  app_id: process.env.PUSHER_APP_ID,
+  key: process.env.PUSHER_KEY,
+  secret: process.env.PUSHER_SECRET,
   cluster:"us3",
   useTLS: true,
 });
 
-export default async function handler(req, res) {
-  console.log(req.body);
-  const { roomID, socket_id, name, isCreator } = req.body;
+export default function handler(req, res) {
+  const { socket_id: socketId, channel_name: channelName } = req.body;
 
   const presenceData = {
     user_id: uuidv4(),
-    user_info: { name, isCreator },
+    user_info: { isCreator: true },
   };
 
-  const response = await pusher.authorizeChannel(
-    socket_id,
-    roomID,
+  const auth = pusher.authorizeChannel(
+    socketId,
+    channelName,
     presenceData
   );
 
-  const trigger = await pusher.trigger(`${roomID}`, "create-event", {
-    board: state,
-  });
+  // const trigger = await pusher.trigger(channelName, "create-event", {
+  //   board: DEFAULT_STATE,
+  // });
 
-  console.log(response);
+  // console.log(JSON.stringify(JSON.parse(response)));
 
-  res.status(200).send(response, trigger);
+  res.send(auth);
 }
