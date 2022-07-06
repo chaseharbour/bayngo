@@ -6,6 +6,7 @@ let channel;
 const Bingo = ({ slug }) => {
   const [boardID, setBoardID] = useState(slug);
   const [boardState, setBoardState] = useState([]);
+  const [boardTest, setBoardTest] = useState(false);
 
   useEffect(() => {
     setBoardID(slug);
