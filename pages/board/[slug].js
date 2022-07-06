@@ -11,9 +11,6 @@ const Bingo = ({ slug }) => {
     setBoardID(slug);
 
     const pusher = new Pusher("038f0aceaa38432312b6", {
-      app_id: process.env.PUSHER_APP_ID,
-      key: process.env.PUSHER_KEY,
-      secret: process.env.PUSHER_SECRET,
       cluster: "us3",
       channelAuthorization: { endpoint: "/api/pusher/auth" },
     });
