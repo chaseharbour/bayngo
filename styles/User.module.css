@@ -1,0 +1,28 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, min-content);
+  grid-gap: 2rem;
+  align-items: center;
+}
+
+.text {
+  font-size: var(--text-size);
+  font-weight: 500;
+  color: var(--text-main);
+  background: none;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 0;
+  margin: 0.15rem;
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(5, min-content);
+  grid-template-rows: repeat(5, min-content);
+}
+
+.tile {
+  margin: 0;
+  padding: 0;
+}

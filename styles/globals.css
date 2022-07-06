@@ -27,7 +27,7 @@ body {
 }
 
 a {
-  color: inherit;
+  color: var(--text-main);
   text-decoration: none;
 }
 

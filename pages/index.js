@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Bingo from "./board";
+import User from "../components/user";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
@@ -27,6 +28,7 @@ export default function Home() {
           <a>Join</a>
         </Link>
         <Bingo />
+        <User />
       </main>
     </div>
   );
