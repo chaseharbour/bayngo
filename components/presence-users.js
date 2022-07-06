@@ -11,6 +11,7 @@ const PresenceUsers = ({ users }) => {
     <section className={styles.container}>
       {users.map((u, i) => (
         <User
+          key={i}
           userId={u.id}
           userName={u.name ? u.name : `user${i}`}
           boardState={u.board.map((b) => b)}

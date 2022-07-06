@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/User.module.css";
 
-const User = ({ key, userId = 0, userName = "user", boardState = [] }) => {
+const User = ({ userId = 0, userName = "user", boardState = [] }) => {
   //Props passed down from the presence-users component.
 
   const [id, setId] = useState(userId);
