@@ -1,6 +1,6 @@
 .container {
   display: grid;
-  grid-template-columns: repeat(2, min-content);
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 2rem;
   align-items: center;
 }
@@ -14,12 +14,15 @@
   text-transform: uppercase;
   padding: 0;
   margin: 0.15rem;
+  justify-self: start;
 }
 
 .tiles {
   display: grid;
   grid-template-columns: repeat(5, min-content);
   grid-template-rows: repeat(5, min-content);
+  padding: 0;
+  margin: 0;
 }
 
 .tile {
