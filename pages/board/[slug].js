@@ -32,8 +32,11 @@ const Bingo = ({ slug }) => {
     { tile: 23, content: "", state: false, editable: true, isEditing: false },
     { tile: 24, content: "", state: false, editable: true, isEditing: false },
   ];
+  
   const [boardID, setBoardID] = useState(slug);
-  const [boardState, setBoardState] = useState([...dummyData]);
+  const [boardState, setBoardState] = useState([]);
+  const [boardTest, setBoardTest] = useState(false);
+
 
   useEffect(() => {
     setBoardID(slug);
