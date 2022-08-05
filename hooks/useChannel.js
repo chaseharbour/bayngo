@@ -5,12 +5,12 @@ const ably = new Ably.Realtime.Promise({
   authUrl: "/api/ably/createTokenRequest",
 });
 
-export function useChannel(channelName, callbackOnMessage) {
+export function useChannel(channelName, callbackOnBoardStateChange) {
   const channel = ably.channels.get(channelName);
 
   const subscribeOnMount = () => {
-    channel.subscribe((msg) => {
-      callbackOnMessage(msg);
+    channel.subscribe((state) => {
+      callbackOnBoardStateChange(state);
     });
   };
 

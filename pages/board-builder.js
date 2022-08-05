@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DynamicLinkButton from "../components/dynamic-link-button";
-import Name from "../components/name";
 import styles from "../styles/Board.module.css";
 
 const BoardBuilder = () => {
-  const [name, setName] = useState("");
-
   const [boardState, setBoardState] = useState([
     { tile: 0, content: "", state: false, editable: true, isEditing: false },
     { tile: 1, content: "", state: false, editable: true, isEditing: false },
@@ -74,11 +71,6 @@ const BoardBuilder = () => {
   //   }
   // };
 
-  const nameChangeHandler = (e) => {
-    e.preventDefault;
-    setName(e.target.value);
-  };
-
   const boardChangeHandler = (i) => (e) => {
     setBoardState(
       boardState.map((item) =>
@@ -89,23 +81,18 @@ const BoardBuilder = () => {
 
   const boardCreateHandler = async () => {
     try {
-      await axios.post('/api/pusher/room-create', {
+      await axios.post("/api/pusher/room-create", {
         state: boardState,
         roomID: roomName,
-      })
+      });
     } catch (e) {
       return alert(e);
     }
-    console.log('board initial state set!');
+    console.log("board initial state set!");
   };
 
   return (
     <>
-      <Name
-        placeholder={"Enter your name"}
-        changeFunc={nameChangeHandler}
-        required={true}
-      />
       <div className={styles.board}>
         {boardState.map((t, i) => {
           return t.isEditing ? (
