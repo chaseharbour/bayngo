@@ -4,7 +4,7 @@ import DynamicLinkButton from "../components/dynamic-link-button";
 import { useChannel } from "../hooks/useChannel";
 import styles from "../styles/Board.module.css";
 
-const BoardBuilder = ({ roomID }) => {
+const Board = ({ roomID }) => {
   const [boardState, setBoardState] = useState([
     { tile: 0, content: "", state: false, editable: true, isEditing: false },
     { tile: 1, content: "", state: false, editable: true, isEditing: false },
@@ -50,11 +50,11 @@ const BoardBuilder = ({ roomID }) => {
   // }, []);
 
   const [channel, ably] = useChannel(roomID, (message) => {
-    setBoardState(message);
+    console.log(message.data);
   });
   console.log(channel);
 
-  const tileClickHandler = (i) => (e) => {
+  const handleTileClick = (i) => (e) => {
     setBoardState(
       boardState.map((item) =>
         item.tile === i
@@ -77,28 +77,16 @@ const BoardBuilder = ({ roomID }) => {
   //   }
   // };
 
-  const boardChangeHandler = (i) => (e) => {
-    setBoardState(
-      boardState.map((item) =>
-        item.tile === i ? { ...item, content: e.target.value } : item
-      )
+  const handleBoardChange = (i) => (e) => {
+    const newState = boardState.map((item) =>
+      item.tile === i ? { ...item, content: e.target.value } : item
     );
-
-    // console.log(boardState);
-
-    // channel.publish({ name: "board-update", data: boardState });
+    setBoardState(newState);
   };
 
-  const boardCreateHandler = async () => {
-    try {
-      await axios.post("/api/pusher/room-create", {
-        state: boardState,
-        roomID: roomName,
-      });
-    } catch (e) {
-      return alert(e);
-    }
-    console.log("board initial state set!");
+  const handleBoardSubmit = (e) => {
+    e.preventDefault();
+    channel.publish({ name: "board-update", data: boardState });
   };
 
   return (
@@ -110,45 +98,25 @@ const BoardBuilder = ({ roomID }) => {
               type="text"
               autoFocus
               className="tile-input"
-              onChange={boardChangeHandler(i)}
+              onChange={handleBoardChange(i)}
             ></input>
           ) : (
-            <div className={styles.tile} onClick={tileClickHandler(i)}>
+            <div className={styles.tile} onClick={handleTileClick(i)}>
               <p className={styles.text}>{`${t.content}
               `}</p>
             </div>
           );
         })}
       </div>
-      <DynamicLinkButton
+      <button onClick={handleBoardSubmit}>Submit</button>
+      {/* <DynamicLinkButton
         location={"/board/[slug]"}
         label="Create"
         asLoc={`/board/${roomName}`}
         clickFunc={boardCreateHandler}
-      />
+      /> */}
     </>
   );
 };
 
-export const getServerSideProps = async () => {
-  try {
-    const response = await axios.get(
-      `http://${process.env.API_HOST_NAME}:${process.env.API_HOST_PORT}/api/pusher/room-init`
-    );
-    console.log(response);
-    return {
-      props: {
-        roomID: response.data.roomID,
-      },
-    };
-  } catch (err) {
-    console.error(err);
-    return {
-      props: {
-        error: JSON.stringify(err),
-      },
-    };
-  }
-};
-
-export default BoardBuilder;
+export default Board;

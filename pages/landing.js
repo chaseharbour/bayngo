@@ -41,7 +41,7 @@ const Landing = () => {
           state={modalActive}
         />
 
-        <Link href="/board-builder">
+        <Link href="/play">
           <a>Create room</a>
         </Link>
         <Link href="/board-join">
@@ -57,7 +57,7 @@ const Landing = () => {
           changeFunc={nameChangeHandler}
           required={true}
         />
-        <Link href="/board-builder">
+        <Link href="/play">
           <a onClick={nameSubmitHandler}>Create room</a>
         </Link>
         <Link href="/board-join">
