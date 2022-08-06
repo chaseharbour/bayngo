@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DynamicLinkButton from "../components/dynamic-link-button";
+import { useChannel } from "../hooks/useChannel";
 import styles from "../styles/Board.module.css";
 
-const BoardBuilder = () => {
+const BoardBuilder = ({ roomID }) => {
   const [boardState, setBoardState] = useState([
     { tile: 0, content: "", state: false, editable: true, isEditing: false },
     { tile: 1, content: "", state: false, editable: true, isEditing: false },
@@ -34,19 +35,24 @@ const BoardBuilder = () => {
 
   const [roomName, setRoomName] = useState("");
 
-  useEffect(() => {
-    const getRoom = async () => {
-      try {
-        const response = await axios.get("/api/pusher/room-init");
+  // useEffect(() => {
+  //   const getRoom = async () => {
+  //     try {
+  //       const response = await axios.get("/api/pusher/room-init");
 
-        setRoomName(response.data.roomID);
-      } catch (err) {
-        console.error(err);
-      }
-    };
+  //       setRoomName(response.data.roomID);
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   };
 
-    getRoom();
-  }, []);
+  //   getRoom();
+  // }, []);
+
+  const [channel, ably] = useChannel(roomID, (message) => {
+    setBoardState(message);
+  });
+  console.log(channel);
 
   const tileClickHandler = (i) => (e) => {
     setBoardState(
@@ -77,6 +83,10 @@ const BoardBuilder = () => {
         item.tile === i ? { ...item, content: e.target.value } : item
       )
     );
+
+    // console.log(boardState);
+
+    // channel.publish({ name: "board-update", data: boardState });
   };
 
   const boardCreateHandler = async () => {
@@ -118,6 +128,27 @@ const BoardBuilder = () => {
       />
     </>
   );
+};
+
+export const getServerSideProps = async () => {
+  try {
+    const response = await axios.get(
+      `http://${process.env.API_HOST_NAME}:${process.env.API_HOST_PORT}/api/pusher/room-init`
+    );
+    console.log(response);
+    return {
+      props: {
+        roomID: response.data.roomID,
+      },
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      props: {
+        error: JSON.stringify(err),
+      },
+    };
+  }
 };
 
 export default BoardBuilder;

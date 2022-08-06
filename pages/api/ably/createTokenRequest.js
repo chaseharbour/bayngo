@@ -9,7 +9,5 @@ export default async function handler(req, res) {
     isRoomOwner,
   });
 
-  console.log(tokenRequestData);
-
   res.status(200).json(tokenRequestData);
 }
