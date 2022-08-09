@@ -17,6 +17,7 @@
     "pusher-js": "^7.1.0-beta",
     "react": "18.1.0",
     "react-dom": "18.1.0",
+    "unique-names-generator": "^4.7.1",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

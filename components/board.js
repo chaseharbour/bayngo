@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import DynamicLinkButton from "../components/dynamic-link-button";
-import { useChannel } from "../hooks/useChannel";
+import {
+  usePresence,
+  assertConfiguration,
+  useChannel,
+} from "@ably-labs/react-hooks";
+import PresenceUsers from "./presence-users";
+// import { useChannel } from "../hooks/useChannel";
 import styles from "../styles/Board.module.css";
 
 const Board = ({ roomID }) => {
+  const ably = assertConfiguration();
   const [boardState, setBoardState] = useState([
     { tile: 0, content: "", state: false, editable: true, isEditing: false },
     { tile: 1, content: "", state: false, editable: true, isEditing: false },
@@ -33,7 +38,7 @@ const Board = ({ roomID }) => {
     { tile: 24, content: "", state: false, editable: true, isEditing: false },
   ]);
 
-  const [channel, ably] = useChannel(roomID, (message) => {
+  const [channel] = useChannel(roomID, (message) => {
     console.log(message.data);
   });
 
@@ -107,6 +112,7 @@ const Board = ({ roomID }) => {
         asLoc={`/board/${roomName}`}
         clickFunc={boardCreateHandler}
       /> */}
+      <PresenceUsers roomID={roomID} />
     </>
   );
 };

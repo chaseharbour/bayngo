@@ -1,22 +1,30 @@
 import React, { useState, useEffect } from "react";
 import User from "./user";
+import {
+  usePresence,
+  assertConfiguration,
+  useChannel,
+} from "@ably-labs/react-hooks";
 import styles from "../styles/PresenceUsers.module.css";
 
-const PresenceUsers = ({ users }) => {
-  //"users" prop must be an array of objects in the form of: {id: number, name: string, board: array}
+const PresenceUsers = ({ roomID }) => {
+  const ably = assertConfiguration();
+  const [presenceData, updateStatus] = usePresence(`play:${roomID}`);
+  const peers = presenceData.map((msg, i) => (
+    // <li key={i}>{msg.clientId}</li>
+    <User
+      key={i}
+      userId={i}
+      userName={msg.clientId}
+      // boardState={u.board.map((b) => b)}
+    />
+  ));
 
-  //the "users" prop data should originate from Pusher event bindings in the parent component
+  //"users" prop must be an array of objects in the form of: {id: int, name: string, board: array}
 
   return (
     <section className={styles.container}>
-      {users.map((u, i) => (
-        <User
-          key={i}
-          userId={u.id}
-          userName={u.name ? u.name : `user${i}`}
-          boardState={u.board.map((b) => b)}
-        />
-      ))}
+      <ul>{peers}</ul>
     </section>
   );
 };

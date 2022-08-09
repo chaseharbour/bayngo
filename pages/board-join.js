@@ -15,8 +15,6 @@ const BoardJoin = () => {
         { roomID: boardID }
       );
 
-      console.log(res.data);
-
       setIsValidRoomID(res.data);
     }
 
@@ -25,22 +23,6 @@ const BoardJoin = () => {
 
   const handleChangeBoardID = async (e) => {
     setBoardID(e.target.value.toUpperCase());
-
-    // if (e.target.value.length === 5) {
-    //   const res = await axios.post(
-    //     `${process.env.NEXT_PUBLIC_HOSTNAME}/api/ably/channelExists`,
-    //     { roomID: boardID }
-    //   );
-
-    //   console.log(res);
-
-    //   setIsValidRoomID(res.data[0]);
-    //   // res.data.map((room) => {
-    //   //   return room.name.includes(boardID)
-    //   //     ? setIsValidRoomID(true)
-    //   //     : setIsValidRoomID(false);
-    //   // });
-    // }
   };
 
   return (

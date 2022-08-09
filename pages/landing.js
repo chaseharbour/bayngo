@@ -79,10 +79,10 @@ const Landing = () => {
           required={true}
         />
         <Link href="/initialize">
-          <a onClick={createSubmitHandler}>Create room</a>
+          <a>Create room</a>
         </Link>
         <Link href="/board-join">
-          <a onClick={joinSubmitHandler}>Join room</a>
+          <a>Join room</a>
         </Link>
       </main>
     );

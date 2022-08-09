@@ -8,9 +8,9 @@ const User = ({ userId = 0, userName = "user", boardState = [] }) => {
   const [name, setName] = useState(userName);
   const [board, setBoard] = useState(boardState);
 
-  useEffect(() => {
-    setBoard(boardState);
-  }, [boardState]);
+  // useEffect(() => {
+  //   setBoard(boardState);
+  // }, [boardState]);
 
   return (
     <aside className={styles.container}>
