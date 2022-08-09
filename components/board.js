@@ -33,26 +33,18 @@ const Board = ({ roomID }) => {
     { tile: 24, content: "", state: false, editable: true, isEditing: false },
   ]);
 
-  const [roomName, setRoomName] = useState("");
-
-  // useEffect(() => {
-  //   const getRoom = async () => {
-  //     try {
-  //       const response = await axios.get("/api/pusher/room-init");
-
-  //       setRoomName(response.data.roomID);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-
-  //   getRoom();
-  // }, []);
-
   const [channel, ably] = useChannel(roomID, (message) => {
     console.log(message.data);
   });
-  console.log(channel);
+
+  useEffect(() => {
+    channel.history((err, resultPage) => {
+      const data = resultPage.items.slice(-1);
+      data[0].data
+        ? setBoardState(data[0].data)
+        : console.log("No board history found, starting new board.");
+    });
+  }, []);
 
   const handleTileClick = (i) => (e) => {
     setBoardState(

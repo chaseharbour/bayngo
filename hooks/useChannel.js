@@ -10,7 +10,7 @@ const ably = new Ably.Realtime.Promise({
 });
 
 export function useChannel(channelName, callbackOnBoardStateChange) {
-  const channel = ably.channels.get(channelName);
+  const channel = ably.channels.get(`play:${channelName}`);
 
   const subscribeOnMount = () => {
     channel.subscribe((state) => {

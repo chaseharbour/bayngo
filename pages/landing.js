@@ -3,6 +3,7 @@ import Link from "next/link";
 import Modal from "../components/modal";
 import Name from "../components/name";
 import axios from "axios";
+import { configureAbly } from "@ably-labs/react-hooks";
 import styles from "../styles/Home.module.css";
 
 const Landing = () => {
@@ -18,16 +19,36 @@ const Landing = () => {
     setName(e.target.value);
   };
 
-  const nameSubmitHandler = async (e) => {
+  const createSubmitHandler = async (e) => {
     e.preventDefault;
-    try {
-      await axios.post("/api/ably/createTokenRequest", {
-        clientId: name,
-        isRoomOwner: true,
-      });
-    } catch (err) {
-      return alert(err);
-    }
+    configureAbly({
+      authUrl: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/ably/createTokenRequest`,
+      clientId: name,
+    });
+    // try {
+    //   await axios.post("/api/ably/createTokenRequest", {
+    //     clientId: name,
+    //     isRoomOwner: true,
+    //   });
+    // } catch (err) {
+    //   return alert(err);
+    // }
+  };
+
+  const joinSubmitHandler = async (e) => {
+    e.preventDefault;
+    configureAbly({
+      authUrl: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/ably/createTokenRequest`,
+      clientId: name,
+    });
+    // try {
+    //   await axios.post("/api/ably/createTokenRequest", {
+    //     clientId: name,
+    //     isRoomOwner: true,
+    //   });
+    // } catch (err) {
+    //   return alert(err);
+    // }
   };
 
   if (modalActive) {
@@ -57,11 +78,11 @@ const Landing = () => {
           changeFunc={nameChangeHandler}
           required={true}
         />
-        <Link href="/play">
-          <a onClick={nameSubmitHandler}>Create room</a>
+        <Link href="/initialize">
+          <a onClick={createSubmitHandler}>Create room</a>
         </Link>
         <Link href="/board-join">
-          <a>Join room</a>
+          <a onClick={joinSubmitHandler}>Join room</a>
         </Link>
       </main>
     );
