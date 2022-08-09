@@ -9,10 +9,8 @@ export default async function handler(req, res) {
       `https://rest.ably.io/channels?key=${process.env.ABLY_SERVER_API_KEY}`
     );
 
-    const isChannelActive = response.data.map((room) => {
-      if (room.name.includes(roomID)) return true;
-      return false;
-    });
+    const checkAllChannels = (item) => item.name.includes(roomID);
+    const isChannelActive = response.data.some(checkAllChannels);
 
     res.status(200).json(isChannelActive);
   } catch (err) {
