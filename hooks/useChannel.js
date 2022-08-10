@@ -1,10 +1,8 @@
 import Ably from "ably/promises";
-import { configureAbly } from "@ably-labs/react-hooks";
 import { useEffect } from "react";
 
 const prefix = process.env.API_ROOT || "";
 
-configureAbly({ authUrl: `${prefix}/api/ably/createTokenRequest` });
 const ably = new Ably.Realtime.Promise({
   authUrl: `${prefix}/api/ably/createTokenRequest`,
 });

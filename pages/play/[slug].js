@@ -1,14 +1,10 @@
 import React from "react";
 import styles from "../../styles/Board.module.css";
 import dynamic from "next/dynamic";
-import { configureAbly } from "@ably-labs/react-hooks";
+import { configureAbly, useChannel } from "@ably-labs/react-hooks";
 
 const DynamicBoardImport = dynamic(() => import("../../components/board"), {
   ssr: false,
-});
-
-configureAbly({
-  authUrl: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/ably/createTokenRequest`,
 });
 
 const Play = ({ roomID }) => {

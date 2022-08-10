@@ -23,32 +23,14 @@ const Landing = () => {
     e.preventDefault;
     configureAbly({
       authUrl: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/ably/createTokenRequest`,
-      clientId: name,
     });
-    // try {
-    //   await axios.post("/api/ably/createTokenRequest", {
-    //     clientId: name,
-    //     isRoomOwner: true,
-    //   });
-    // } catch (err) {
-    //   return alert(err);
-    // }
   };
 
   const joinSubmitHandler = async (e) => {
     e.preventDefault;
     configureAbly({
       authUrl: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/ably/createTokenRequest`,
-      clientId: name,
     });
-    // try {
-    //   await axios.post("/api/ably/createTokenRequest", {
-    //     clientId: name,
-    //     isRoomOwner: true,
-    //   });
-    // } catch (err) {
-    //   return alert(err);
-    // }
   };
 
   if (modalActive) {

@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   const randomName = uniqueNamesGenerator({
     dictionaries: [adjectives, colors, animals],
     separator: "-",
-    length: 3,
+    length: 2,
   });
 
   const tokenRequestData = await client.auth.createTokenRequest({

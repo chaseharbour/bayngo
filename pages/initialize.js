@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "../styles/Board.module.css";
 
-const Play = () => {
+const Initialize = () => {
   return (
     <main>
       <h1 className={styles.header}>Room is loading...</h1>
@@ -28,4 +28,4 @@ export const getServerSideProps = async () => {
   }
 };
 
-export default Play;
+export default Initialize;

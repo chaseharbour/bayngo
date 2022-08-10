@@ -2,14 +2,18 @@ import React, { useState, useEffect } from "react";
 import {
   usePresence,
   assertConfiguration,
+  configureAbly,
   useChannel,
 } from "@ably-labs/react-hooks";
 import PresenceUsers from "./presence-users";
-// import { useChannel } from "../hooks/useChannel";
 import styles from "../styles/Board.module.css";
+import axios from "axios";
+
+configureAbly({
+  authUrl: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/ably/createTokenRequest`,
+});
 
 const Board = ({ roomID }) => {
-  const ably = assertConfiguration();
   const [boardState, setBoardState] = useState([
     { tile: 0, content: "", state: false, editable: true, isEditing: false },
     { tile: 1, content: "", state: false, editable: true, isEditing: false },
@@ -38,12 +42,13 @@ const Board = ({ roomID }) => {
     { tile: 24, content: "", state: false, editable: true, isEditing: false },
   ]);
 
-  const [channel] = useChannel(roomID, (message) => {
-    console.log(message.data);
+  const [channel] = useChannel(`play:${roomID}`, (message) => {
+    setBoardState(message.data);
   });
 
   useEffect(() => {
     channel.history((err, resultPage) => {
+      console.log(resultPage.items);
       const data = resultPage.items.slice(-1);
       data[0].data
         ? setBoardState(data[0].data)
