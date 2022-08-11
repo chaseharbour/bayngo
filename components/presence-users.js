@@ -5,18 +5,9 @@ import {
   assertConfiguration,
   useChannel,
 } from "@ably-labs/react-hooks";
-import axios from "axios";
 import styles from "../styles/PresenceUsers.module.css";
 
-const PresenceUsers = ({ roomID }) => {
-  const [presenceData, updateStatus] = usePresence(`play:${roomID}`);
-
-  useEffect(() => {
-    axios.post(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/ably/channelAdmin`, {
-      data: { roomID },
-    });
-  }, []);
-
+const PresenceUsers = ({ roomID, presenceData }) => {
   const peers = presenceData.map((msg, i) => (
     <User
       key={i}
@@ -25,8 +16,6 @@ const PresenceUsers = ({ roomID }) => {
       // boardState={u.board.map((b) => b)}
     />
   ));
-
-  //"users" prop must be an array of objects in the form of: {id: int, name: string, board: array}
 
   return (
     <section className={styles.container}>

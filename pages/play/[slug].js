@@ -1,17 +1,32 @@
 import React from "react";
 import styles from "../../styles/Board.module.css";
 import dynamic from "next/dynamic";
-import { configureAbly, useChannel } from "@ably-labs/react-hooks";
+import { configureAbly, useChannel, usePresence } from "@ably-labs/react-hooks";
+import PresenceUsers from "../../components/presence-users";
 
 const DynamicBoardImport = dynamic(() => import("../../components/board"), {
   ssr: false,
 });
 
+const DynamicPresenceUserImport = dynamic(
+  () => import("../../components/presence-users"),
+  {
+    ssr: false,
+  }
+);
+
+configureAbly({
+  authUrl: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/ably/createTokenRequest`,
+});
+
 const Play = ({ roomID }) => {
+  const [presenceData, updateStatus] = usePresence(`play:${roomID}`);
+
   return (
     <main>
       <h1 className={styles.header}>{roomID}</h1>
       <DynamicBoardImport roomID={roomID} />
+      <DynamicPresenceUserImport roomID={roomID} presenceData={presenceData} />
     </main>
   );
 };

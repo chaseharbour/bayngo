@@ -5,13 +5,7 @@ import {
   configureAbly,
   useChannel,
 } from "@ably-labs/react-hooks";
-import PresenceUsers from "./presence-users";
 import styles from "../styles/Board.module.css";
-import axios from "axios";
-
-configureAbly({
-  authUrl: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/ably/createTokenRequest`,
-});
 
 const Board = ({ roomID }) => {
   const [boardState, setBoardState] = useState([
@@ -48,9 +42,8 @@ const Board = ({ roomID }) => {
 
   useEffect(() => {
     channel.history((err, resultPage) => {
-      console.log(resultPage.items);
       const data = resultPage.items.slice(-1);
-      data[0].data
+      data[0]?.data
         ? setBoardState(data[0].data)
         : console.log("No board history found, starting new board.");
     });
@@ -111,13 +104,6 @@ const Board = ({ roomID }) => {
         })}
       </div>
       <button onClick={handleBoardSubmit}>Submit</button>
-      {/* <DynamicLinkButton
-        location={"/board/[slug]"}
-        label="Create"
-        asLoc={`/board/${roomName}`}
-        clickFunc={boardCreateHandler}
-      /> */}
-      <PresenceUsers roomID={roomID} />
     </>
   );
 };

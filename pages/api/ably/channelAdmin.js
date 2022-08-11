@@ -1,14 +1,14 @@
 import Ably from "ably/promises";
 
-export default async function handler(req, res) {
+export default function handler(req, res) {
   const { roomID } = req.body.data;
-  const ably = new Ably.Realtime(process.env.ABLY_SERVER_API_KEY);
+  const realtime = new Ably.Realtime(process.env.ABLY_SERVER_API_KEY);
 
-  const channel = ably.channels.get(`play:${roomID}`);
+  const channel = realtime.channels.get(`play:${roomID}`);
 
-  const activeUsers = await channel.presence.get((err, members) => {
+  const activeUsers = channel.presence.get((err, members) => {
     if (err) console.error(err);
-    console.log(members.map((m) => m));
+    console.log(members[0]?.clientId);
   });
 
   console.log(activeUsers);
