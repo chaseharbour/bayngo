@@ -1,5 +1,6 @@
 :root {
   --bg-main: hsl(136, 0%, 13%);
+  --bg-main-light: hsl(136, 0%, 17%);
   --text-main: #f0f7ee;
   --highlight-bold: #e76f51;
   --highlight-soft: #f4a261;
@@ -27,7 +28,7 @@ body {
 }
 
 a {
-  color: inherit;
+  color: var(--text-main);
   text-decoration: none;
 }
 

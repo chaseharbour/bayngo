@@ -1,7 +1,5 @@
 import Head from "next/head";
-import Bingo from "./board";
-import Image from "next/image";
-import Link from "next/link";
+import Landing from "./landing";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -18,16 +16,7 @@ export default function Home() {
           crossOrigin=""
         />
       </Head>
-
-      <main className={styles.main}>
-        <Link href="/board-builder">
-          <a>Create</a>
-        </Link>
-        <Link href="/board-join">
-          <a>Join</a>
-        </Link>
-        <Bingo />
-      </main>
+      <Landing />
     </div>
   );
 }
