@@ -8,7 +8,6 @@ import {
 
 export default async function handler(req, res) {
   const client = new Ably.Realtime(process.env.ABLY_API_KEY);
-  const { clientId } = req.query;
 
   const randomName = uniqueNamesGenerator({
     dictionaries: [adjectives, colors, animals],
