@@ -20,13 +20,13 @@ configureAbly({
 });
 
 const Play = ({ roomID }) => {
-  const [presenceData, updateStatus] = usePresence(`play:${roomID}`);
+  // const [presenceData, updateStatus] = usePresence(`play:${roomID}`);
 
   return (
     <main>
       <h1 className={styles.header}>{roomID}</h1>
       <DynamicBoardImport roomID={roomID} />
-      <DynamicPresenceUserImport roomID={roomID} presenceData={presenceData} />
+      {/* <DynamicPresenceUserImport roomID={roomID} presenceData={presenceData} /> */}
     </main>
   );
 };
